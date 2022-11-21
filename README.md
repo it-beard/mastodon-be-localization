@@ -1,2 +1,2 @@
-# mastodone-be-localization
-Кастомная лакалізацыя Mastodon на беларускую мову праз "Custom CSS"
+# CSS-лакаізацыя сервера vkl.world
+Кастомная лакалізацыя ды стыль аформлення Mastodon-серверу vkl.world на беларускую мову праз "Custom CSS"
