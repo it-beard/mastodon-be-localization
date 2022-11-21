@@ -1,0 +1,279 @@
+/* Кнопка Publish */
+
+.compose-form__publish-button-wrapper .button {
+  visibility: hidden;
+}
+
+.compose-form__publish-button-wrapper .button:after {
+    content: 'Рохнуць!';
+    visibility: visible;
+    display: block;
+    padding: 7px 15px;
+    margin-top: -25px;
+    background-color: darkred;
+    border-radius: 5px;
+    margin-right: -15px;
+}
+
+.compose-form__publish-button-wrapper .button:hover:after {
+    background-color: #660000;
+    transition: 0.3s;
+}
+
+/* Кнопка Publish (мабільная версія) */
+
+.ui__header__links a[href="/publish"].button {
+  background-color: darkred;
+}
+
+.ui__header__links a[href="/publish"].button:hover,
+.ui__header__links a[href="/publish"].button:active {
+    background-color: #660000;
+}
+
+.ui__header__links a[href="/publish"] span {
+  visibility: hidden;
+}
+
+.ui__header__links a[href="/publish"] span:after {
+    content: 'Рохнуць!';
+    position: absolute;
+    left: 11px;
+    visibility: visible;
+}
+
+.ui__header__links a[href="/publish"] span:hover:after {
+
+    background-color: #660000;
+    transition: 0.3s;
+}
+
+/* Галоўнае меню */
+
+.column-link[title="Home"] span,
+.column-link[title="Notifications"] span,
+.column-link[title="Explore"] span,
+.column-link[title="Local"] span,
+.column-link[title="Federated"] span,
+.column-link[title="Direct messages"] span,
+.column-link[title="Favourites"] span,
+.column-link[title="Bookmarks"] span,
+.column-link[title="Lists"] span,
+.column-link[title="Preferences"] span {
+    visibility: hidden;
+    position: relative;
+}
+
+.column-link[title="Home"] span:after,
+.column-link[title="Notifications"] span:after,
+.column-link[title="Explore"] span:after,
+.column-link[title="Local"] span:after,
+.column-link[title="Federated"] span:after,
+.column-link[title="Direct messages"] span:after,
+.column-link[title="Favourites"] span:after,
+.column-link[title="Bookmarks"] span:after,
+.column-link[title="Lists"] span:after,
+.column-link[title="Preferences"] span:after {
+    visibility: visible;
+    position: absolute;
+    left: 0px;
+}
+
+.column-link[title="Home"] span:after {
+    content: 'Галоўная';
+}
+
+.column-link[title="Notifications"] span:after {
+    content: 'Апавяшчэнні';
+}
+
+.column-link[title="Explore"] span:after {
+    content: 'Рэкамендацыі';
+}
+
+
+.column-link[title="Local"] span:after {
+    content: 'Тутэйшыя';
+}
+
+.column-link[title="Federated"] span:after {
+    content: 'Сусвет';
+}
+
+.column-link[title="Direct messages"] span:after {
+    content: 'Асабістыя паведамленні';
+}
+
+.column-link[title="Favourites"] span:after {
+    content: 'Улюбёнае';
+}
+
+.column-link[title="Bookmarks"] span:after {
+    content: 'Закладкі';
+}
+
+.column-link[title="Lists"] span:after {
+    content: 'Спісы';
+}
+
+.column-link[title="Preferences"] span:after {
+    content: 'Налады';
+}
+
+/* Меню справа - Трэнды */
+
+.getting-started__trends h4 span {
+    visibility: hidden;
+    position: relative;
+}
+
+.getting-started__trends h4 span:after {
+    visibility: visible;
+    position: absolute;
+    left: 0px;
+    content: 'У трэндзе'
+}
+
+/* Загаловак Анонсаў */
+
+.announcements__item__range span {
+    visibility: hidden;
+    position: relative;
+}
+
+.announcements__item__range span:after {
+    visibility: visible;
+    position: absolute;
+    left: 0px;
+}
+
+.announcements__item__range span:after {
+    content: 'Анонсы'
+}
+
+/* Кнопки фильтра ленты Апавяшчэнняў */
+
+.notification__filter-bar button span {
+    visibility: hidden;
+    position: relative;
+}
+
+.notification__filter-bar button span:after {
+    visibility: visible;
+    position: absolute;
+    left: 0px;
+}
+
+.notification__filter-bar button:first-child span:after {
+    content: 'Усе'
+}
+
+.notification__filter-bar button:last-child span:after {
+    content: 'Тваі'
+}
+
+/* Кнопки фильтра ленты Рэкамендацый */
+
+.account__section-headline a[href="/explore"] span,
+.account__section-headline a[href="/explore/tags"] span,
+.account__section-headline a[href="/explore/links"] span,
+.account__section-headline a[href="/explore/suggestions"] span {
+    visibility: hidden;
+    position: relative;
+}
+
+.account__section-headline a[href="/explore"] span:after,
+.account__section-headline a[href="/explore/tags"] span:after,
+.account__section-headline a[href="/explore/links"] span:after,
+.account__section-headline a[href="/explore/suggestions"] span:after {
+    visibility: visible;
+    position: absolute;
+    left: 0px;
+}
+
+.account__section-headline a[href="/explore"] span:after {
+    content: 'Посты'
+}
+
+.account__section-headline a[href="/explore/tags"] span:after {
+    content: 'Хэштэгі'
+}
+
+.account__section-headline a[href="/explore/links"] span:after {
+    content: 'Спасылкі'
+}
+
+.account__section-headline a[href="/explore/suggestions"] span:after {
+    content: 'Для цябе'
+}
+
+/* Загалоўкі стужак (хэдэры) */
+
+.column-header i.fa-home,
+.column-header i.fa-bell,
+.column-header i.fa-hashtag,
+.column-header i.fa-users,
+.column-header i.fa-globe,
+.column-header i.fa-at,
+.column-header i.fa-star,
+.column-header i.fa-bookmark,
+.column-header i.fa-list-ul {
+    position: relative;
+}
+
+.column-header i.fa-home:after,
+.column-header i.fa-bell:after,
+.column-header i.fa-hashtag:after,
+.column-header i.fa-users:after,
+.column-header i.fa-globe:after,
+.column-header i.fa-at:after,
+.column-header i.fa-star:after,
+.column-header i.fa-bookmark:after,
+.column-header i.fa-list-ul:after {
+    color: black;
+    background-color: white;
+    font-family: Arial;
+    font-weight: 900;
+    border-radius: 5px;
+    padding: 3px 8px;
+    margin-left: 5px;
+}
+
+.column-header i.fa-home:after {
+    content: 'Галоўная';
+}
+
+.column-header i.fa-bell:after {
+    content: 'Апавяшчэнні';
+}
+
+.column-header i.fa-hashtag:after {
+    content: 'Рэкамендацыі';
+}
+
+.column-header i.fa-users:after {
+    content: 'Тутэйшыя';
+    padding: 3px 15px;
+}
+
+.column-header i.fa-globe:after {
+    content: 'Сусвет';
+    padding: 3px 50px;
+}
+
+.column-header i.fa-at:after {
+    content: 'Асабістыя паведамленні';
+}
+
+.column-header i.fa-star:after {
+    content: 'Улюбёнае';
+}
+
+.column-header i.fa-bookmark:after {
+    content: 'Закладкі';
+    padding: 3px 15px;
+}
+
+.column-header i.fa-list-ul:after {
+    content: 'Спісы';
+}
