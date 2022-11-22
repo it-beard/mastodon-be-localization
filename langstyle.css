@@ -109,7 +109,7 @@
 }
 
 .column-link[title="Bookmarks"] span:after {
-    content: 'Закладкі';
+    content: 'Абранае';
 }
 
 .column-link[title="Lists"] span:after {
@@ -276,7 +276,7 @@
 }
 
 .column-header i.fa-bookmark:after {
-    content: 'Закладкі';
+    content: 'Абранае';
     padding: 3px 15px;
 }
 
