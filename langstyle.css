@@ -134,7 +134,7 @@
     content: 'У трэндзе'
 }
 
-/* Загаловак Анонсаў */
+/* Загаловак Абвестак */
 
 .announcements__item__range span {
     visibility: hidden;
@@ -148,7 +148,7 @@
 }
 
 .announcements__item__range span:after {
-    content: 'Анонсы'
+    content: 'Абвесткі'
 }
 
 /* Кнопки фильтра ленты Апавяшчэнняў */
