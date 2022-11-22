@@ -277,3 +277,34 @@
 .column-header i.fa-list-ul:after {
     content: 'Спісы';
 }
+
+/* Логін на галоўнай */
+
+.sign-in-banner a[href="/auth/sign_in"] span,
+.sign-in-banner a[href="/auth/sign_up"] span,
+.sign-in-banner > p > span {
+    visibility: hidden;
+    position: relative;
+}
+
+.sign-in-banner a[href="/auth/sign_in"] span:after,
+.sign-in-banner a[href="/auth/sign_up"] span:after,
+.sign-in-banner > p > span:after {
+    visibility: visible;
+    position: absolute;
+    left: 0px;
+}
+
+.sign-in-banner a[href="/auth/sign_in"] span:after {
+    content: 'Увайсці';
+}
+
+.sign-in-banner a[href="/auth/sign_up"] span:after {
+    content: 'Стварыць уліковы запіс';
+    left: -30px;
+}
+
+.sign-in-banner > p > span:after {
+    content: 'Увайдзіце, каб падпісацца на людзей, адказваць на допісы і дзяліцца імі, альбо кантактаваць з іншымі серверамі.';
+    top: -10px;
+}
