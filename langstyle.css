@@ -338,8 +338,8 @@
 }
 
 .account__section-headline a[href$="with_replies"] span:after {
-    content: 'Допісы і адказы';
-    left: 3px;
+    content: 'Допісы з адказамі';
+    left: -5px;
 }
 
 .account__section-headline a[href$="media"] span:after {
