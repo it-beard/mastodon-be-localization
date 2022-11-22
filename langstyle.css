@@ -194,8 +194,8 @@
 }
 
 .account__section-headline a[href="/explore"] span:after {
-    content: 'Посты';
-    left: -4px;
+    content: 'Допісы';
+    left: -8px;
 }
 
 .account__section-headline a[href="/explore/tags"] span:after {
@@ -313,4 +313,36 @@
 .sign-in-banner > p > span:after {
     content: 'Увайдзіце, каб падпісацца на людзей, адказваць на допісы і дзяліцца імі, альбо кантактаваць з іншымі серверамі.';
     top: -10px;
+}
+
+/* Профіль */
+
+.account__section-headline a:first-child span,
+.account__section-headline a[href$="with_replies"] span,
+.account__section-headline a[href$="media"] span  {
+    visibility: hidden;
+    position: relative;
+}
+
+.account__section-headline a:first-child span:after,
+.account__section-headline a[href$="with_replies"] span:after,
+.account__section-headline a[href$="media"] span:after {
+    visibility: visible;
+    position: absolute;
+    left: 0px;
+}
+
+.account__section-headline a:first-child span:after {
+    content: 'Допісы';
+    left: -8px;
+}
+
+.account__section-headline a[href$="with_replies"] span:after {
+    content: 'Допісы і адказы';
+    left: 3px;
+}
+
+.account__section-headline a[href$="media"] span:after {
+    content: 'Медыя';
+    left: -5px;
 }
