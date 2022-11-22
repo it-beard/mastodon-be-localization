@@ -165,11 +165,13 @@
 }
 
 .notification__filter-bar button:first-child span:after {
-    content: 'Усе'
+    content: 'Усе';
+    left: -5px;
 }
 
 .notification__filter-bar button:last-child span:after {
-    content: 'Твае'
+    content: 'Твае';
+    left: 15px;
 }
 
 /* Кнопки фильтра ленты Рэкамендацый */
@@ -192,19 +194,23 @@
 }
 
 .account__section-headline a[href="/explore"] span:after {
-    content: 'Посты'
+    content: 'Посты';
+    left: -4px;
 }
 
 .account__section-headline a[href="/explore/tags"] span:after {
-    content: 'Хэштэгі'
+    content: 'Хэштэгі';
+    left: 4px;
 }
 
 .account__section-headline a[href="/explore/links"] span:after {
-    content: 'Спасылкі'
+    content: 'Спасылкі';
+    left: -16px;
 }
 
 .account__section-headline a[href="/explore/suggestions"] span:after {
-    content: 'Для цябе'
+    content: 'Для цябе';
+    left: -7px;
 }
 
 /* Загалоўкі стужак (хэдэры) */
