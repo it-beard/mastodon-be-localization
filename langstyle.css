@@ -105,7 +105,7 @@
 }
 
 .column-link[title="Favourites"] span:after {
-    content: 'Абранае';
+    content: 'Улюбёнае';
 }
 
 .column-link[title="Bookmarks"] span:after {
@@ -272,7 +272,7 @@
 }
 
 .column-header i.fa-star:after {
-    content: 'Абранае';
+    content: 'Улюбёнае';
 }
 
 .column-header i.fa-bookmark:after {
