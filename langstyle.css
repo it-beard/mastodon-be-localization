@@ -60,7 +60,9 @@
 .column-link[title="Notifications"] span,
 .column-link[title="Explore"] span,
 .column-link[title="Local"] span,
+.column-link[title="Local timeline"] span,
 .column-link[title="Federated"] span,
+.column-link[title="Federated timeline"] span,
 .column-link[title="Direct messages"] span,
 .column-link[title="Favourites"] span,
 .column-link[title="Bookmarks"] span,
@@ -74,7 +76,9 @@
 .column-link[title="Notifications"] span:after,
 .column-link[title="Explore"] span:after,
 .column-link[title="Local"] span:after,
+.column-link[title="Local timeline"] span:after,
 .column-link[title="Federated"] span:after,
+.column-link[title="Federated timeline"] span:after,
 .column-link[title="Direct messages"] span:after,
 .column-link[title="Favourites"] span:after,
 .column-link[title="Bookmarks"] span:after,
@@ -98,10 +102,12 @@
 }
 
 
-.column-link[title="Local"] span:after {
+.column-link[title="Local"] span:after,
+.column-link[title="Local timeline"] span:after  {
     content: 'Тутэйшыя';
 }
 
+.column-link[title="Federated timeline"] span:after,
 .column-link[title="Federated"] span:after {
     content: 'Сусвет';
 }
