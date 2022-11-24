@@ -4,12 +4,18 @@
   visibility: hidden;
 }
 
+.compose-form__publish-button-wrapper .fa-lock {
+    visibility: visible;
+    padding-right: 15px;
+    margin-top: 10px;
+}
+
 .compose-form__publish-button-wrapper .button:after {
     content: 'Рохнуць!';
     visibility: visible;
     display: block;
-    padding: 7px 15px;
-    margin-top: -25px;
+    padding: 7px 23px;
+    margin-top: -29px;
     background-color: darkred;
     border-radius: 5px;
     margin-right: -15px;
