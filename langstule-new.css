@@ -1,0 +1,83 @@
+/* Кнопка Publish */
+
+.compose-form__publish-button-wrapper .button {
+  visibility: hidden;
+}
+
+.compose-form__publish-button-wrapper .fa-lock {
+    visibility: visible;
+    padding-right: 15px;
+    margin-top: 10px;
+}
+
+.compose-form__publish-button-wrapper .button:after {
+    content: 'Рохнуць!';
+    visibility: visible;
+    display: block;
+    padding: 7px 23px;
+    margin-top: -29px;
+    background-color: darkred;
+    border-radius: 5px;
+    margin-right: -15px;
+}
+
+.compose-form__publish-button-wrapper .button:hover:after {
+    background-color: #660000;
+    transition: 0.3s;
+}
+
+/* Кнопка Publish (мабільная версія) */
+
+.ui__header__links a[href="/publish"].button {
+  background-color: darkred;
+  width: 110px;
+}
+
+.ui__header__links a[href="/publish"].button:hover,
+.ui__header__links a[href="/publish"].button:active {
+    background-color: #660000;
+}
+
+.ui__header__links a[href="/publish"] span {
+  visibility: hidden;
+}
+
+.ui__header__links a[href="/publish"] span:after {
+    content: 'Рохнуць!';
+    visibility: visible;
+    display: block;
+    padding: 6px 0px 0px 0px;
+    margin-top: -29px;
+    background-color: darkred;
+    border-radius: 5px;
+}
+
+.ui__header__links a[href="/publish"] span:hover:after {
+
+    background-color: #660000;
+    transition: 0.3s;
+}
+
+/* NY 
+
+.column-link--logo:after {
+    content: '🎄';
+    position: relative;
+    left: 5px;
+    top: -10px;
+    font-size: 30px;
+}
+
+.ui__header__logo:after {
+    content: '🎄';
+    position: relative;
+    left: 5px;
+    top: 0px;
+    font-size: 25px;
+}
+
+.ui__header__logo {
+    text-decoration: none;
+}
+
+*/
