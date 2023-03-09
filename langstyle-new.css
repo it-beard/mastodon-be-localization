@@ -26,6 +26,11 @@
     transition: 0.3s;
 }
 
+.compose-form__publish-private .fa-lock:before {
+    margin-right: -35px;
+}
+
+
 /* Кнопка Publish (мабільная версія) */
 
 .ui__header__links a[href="/publish"].button {
