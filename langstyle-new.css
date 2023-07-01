@@ -45,6 +45,7 @@
 
 .ui__header__links a[href="/publish"] span {
   visibility: hidden;
+  display: block;
 }
 
 .ui__header__links a[href="/publish"] span:after {
