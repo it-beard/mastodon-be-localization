@@ -8218,14 +8218,16 @@ body.embed .entry .detailed-status {
 .layout-single-column .poll__option input[type="text"]::placeholder, 
 .layout-single-column .search__input::placeholder, 
 .layout-single-column input::placeholder, 
-.layout-single-column input.setting-text::placeholder,
-.layout-multiple-columns .poll__option input[type="text"]::placeholder, 
-.layout-multiple-columns .search__input::placeholder, 
-.layout-multiple-columns input::placeholder, 
-.layout-multiple-columns input.setting-text::placeholder  {
+.layout-single-column input.setting-text::placeholder {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+}
+
+.layout-single-column .search__icon .fa.active,
+.layout-multiple-columns .search__icon .fa.active {
+    background-color: var(--color-mud);
+    opacity: 1;
 }
 
 .layout-single-column .compose-form .autosuggest-textarea__textarea,
