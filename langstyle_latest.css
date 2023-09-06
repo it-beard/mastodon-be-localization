@@ -1,5 +1,5 @@
 /* Mastodon Bird UI by @rolle@mementomori.social
-   1.6.8-nightly */
+   1.7.3rc7-nightly */
 
 /* CSS variables */
 :root {
@@ -56,12 +56,13 @@
   --color-hashtag: var(--color-accent);
   --color-mention: var(--color-accent);
   --color-link: var(--color-accent);
+  --color-bg-compose-form: rgb(39 44 64 / .4);
+  --color-bg-compose-form-focus: rgb(39 44 64 / .8);
 
   /* In the original UI this color is lighten($ui-base-color, 12%) */
   --color-outer-space: #42485a;
 
   /* Font related */
-  --font-stack: system-ui, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, Inter, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-size: 15px;
   --font-size-smaller: 13px;
   --font-size-12: 12px;
@@ -204,6 +205,8 @@ body.theme-mastodon-light.layout-multiple-columns {
   --color-bg-75: #ffffffbf;
   --color-accent: var(--color-accent-dark);
   --color-ghost-button-text: var(--color-accent-dark);
+  --color-bg-compose-form: rgb(147 136 166 / .2);
+  --color-bg-compose-form-focus: rgb(147 136 166 / .3);
 
   /* Misc */
   --compose-form-linear-gradient: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 53%, rgba(255, 255, 255, 0.8141631652661064) 76%, rgba(255, 255, 255, 0.7077205882352942) 87%, rgba(255, 255, 255, 0.458420868347339) 97%, rgba(255, 255, 255, 0) 100%);
@@ -299,7 +302,6 @@ body.theme-mastodon-light.layout-multiple-columns {
 body.layout-multiple-columns {
   background-color: var(--color-bg);
   color: var(--color-fg);
-  font-family: var(--font-stack);
 }
 
 .layout-multiple-columns .ui {
@@ -481,14 +483,86 @@ body.layout-multiple-columns {
   top: -2px;
 }
 
-/* Bigger preview cards */
+/* URL preview cards */
 .layout-multiple-columns .status-card,
-.layout-multiple-columns .status-card.compact {
+.layout-multiple-columns .status-card:hover,
+.layout-multiple-columns .status-card:focus {
+  background-color: transparent;
+  border-color: var(--color-border);
+}
+
+/* URL preview card summary text */
+.layout-multiple-columns .status-card .status-card__host,
+.layout-multiple-columns .status-card .status-card__description {
+  color: var(--color-dim);
+}
+
+/* URL preview card box */
+/* stylelint-disable-next-line */
+.layout-multiple-columns .status-card .status-card__content {
+  padding: var(--gap-default);
+}
+
+.layout-multiple-columns .status-card.expanded .status-card__content {
+  display: grid;
+  gap: 8px;
+}
+
+/* Preview cards */
+.layout-multiple-columns .status-card {
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  display: block;
   transition: all 200ms;
+}
+
+.layout-multiple-columns .status-card.expanded {
+  display: block;
+}
+
+.layout-multiple-columns a.status-card .status-card__host {
+  font-size: var(--font-size);
+}
+
+.layout-multiple-columns .status-card a:active .status-card__author,
+.layout-multiple-columns .status-card a:active .status-card__title,
+.layout-multiple-columns .status-card a:focus .status-card__author,
+.layout-multiple-columns .status-card a:focus .status-card__title,
+.layout-multiple-columns .status-card a:hover .status-card__author,
+.layout-multiple-columns .status-card a:hover .status-card__title,
+.layout-multiple-columns a.status-card:active .status-card__author,
+.layout-multiple-columns a.status-card:active .status-card__title,
+.layout-multiple-columns a.status-card:focus .status-card__author,
+.layout-multiple-columns a.status-card:focus .status-card__title,
+.layout-multiple-columns a.status-card:hover .status-card__author,
+.layout-multiple-columns a.status-card:hover .status-card__title,
+.layout-multiple-columns a.status-card:focus .status-card__description,
+.layout-multiple-columns a.status-card:hover .status-card__description {
+  color: var(--color-fg);
+}
+
+.layout-multiple-columns .status-card a:active .status-card__host,
+.layout-multiple-columns .status-card a:hover .status-card__host,
+.layout-multiple-columns .status-card a:focus .status-card__host,
+.layout-multiple-columns a.status-card:active .status-card__host,
+.layout-multiple-columns a.status-card:focus .status-card__host,
+.layout-multiple-columns a.status-card:hover .status-card__host {
+  color: var(--color-dim);
+}
+
+/* Show minimal status card if there's no image */
+.layout-multiple-columns .status-card .status-card__image:not(:has(img)) {
+  display: none;
+}
+
+/* Show iframe in status card if status contains embedded media */
+.layout-multiple-columns .status-card .status-card-video:has(iframe) {
+  display: inherit;
+}
+
+/* Hide empty status cards alltogether (Mastodon 4.1.5-2023-07-29) */
+.layout-multiple-columns .status-card:has(.fa-file-text) {
+  display: none;
 }
 
 /* Hide empty YouTube description */
@@ -505,31 +579,37 @@ body.layout-multiple-columns {
   content: "";
 }
 
-.layout-multiple-columns .status-card .status-card__image-image,
-.layout-multiple-columns .status-card .status-card__image-image.compact {
+.layout-multiple-columns .status-card__image-image,
+.layout-multiple-columns .status-card__image-preview,
+.layout-multiple-columns .status-card .status-card__image {
+  background-color: var(--color-arsenic);
   border-radius: 0;
 }
 
-.layout-multiple-columns .status-card .status-card__content,
-.layout-multiple-columns .status-card.compact .status-card__content {
-  padding: 15px;
+.layout-multiple-columns a.status-card .status-card__content {
+  padding: 16px;
 }
 
-.layout-multiple-columns .status-card .status-card__title,
-.layout-multiple-columns .status-card.compact .status-card__title {
+.layout-multiple-columns a.status-card .status-card__title {
   color: var(--color-fg);
-  font-size: 18px;
-  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-semibold);
   line-height: 1.3;
   margin: 0;
+}
+
+.layout-multiple-columns a.status-card.expanded .status-card__title {
   white-space: inherit;
 }
 
-.layout-multiple-columns .status-card .status-card__host,
-.layout-multiple-columns .status-card.compact .status-card__host {
+.layout-multiple-columns .status-card.expanded .status-card__host {
   color: var(--color-dim);
-  font-size: var(--font-size-mid);
-  margin-bottom: 5px;
+  font-size: var(--font-size);
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.layout-multiple-columns .status-card.expanded .status-card__description {
   margin-top: 0;
 }
 
@@ -932,7 +1012,6 @@ body.embed .status__content a,
 .layout-multiple-columns .status-check-box__status .detailed-status__display-name,
 .layout-multiple-columns .report-dialog-modal .poll__option.dialog-option > .poll__option__text,
 .layout-multiple-columns .status-card .status-card__description,
-.layout-multiple-columns .status-card.compact .status-card__description,
 .layout-multiple-columns .report-dialog-modal .dialog-option .poll__input,
 .layout-multiple-columns .dropdown-menu__container__header,
 .layout-multiple-columns .sign-in-banner p,
@@ -1115,6 +1194,7 @@ body.embed .status__content a,
 /* Status action bar */
 .layout-multiple-columns .status__action-bar {
   margin-top: 12px;
+  max-height: 27px;
 }
 
 /* Display name */
@@ -1273,23 +1353,6 @@ body.embed .detailed-status,
   background: var(--color-focusable-toot);
 }
 
-/* URL preview cards */
-.layout-multiple-columns a.status-card,
-.layout-multiple-columns a.status-card.compact:hover,
-.layout-multiple-columns a.status-card.compact:focus,
-.layout-multiple-columns a.status-card.compact {
-  background-color: transparent;
-  border-color: var(--color-border);
-}
-
-/* URL preview card summary text */
-.layout-multiple-columns a.status-card .status-card__host,
-.layout-multiple-columns a.status-card.compact .status-card__host,
-.layout-multiple-columns a.status-card .status-card__description,
-.layout-multiple-columns a.status-card.compact .status-card__description {
-  color: var(--color-dim);
-}
-
 /* Search panel that opens when focusing Search or paste URL field */
 .layout-multiple-columns .explore__search-header .search__popout,
 .layout-multiple-columns .compose-form__poll-wrapper option,
@@ -1305,16 +1368,38 @@ body.embed .detailed-status,
   color: var(--color-light-text);
 }
 
-/* URL preview card box */
-/* stylelint-disable-next-line */
-.layout-multiple-columns a.status-card .status-card__content,
-.layout-multiple-columns a.status-card.compact .status-card__content {
-  display: grid;
-  gap: calc(var(--gap-default) / 2);
-  padding: var(--gap-default);
+/* Pill style tags */
+.layout-multiple-columns .hashtag-bar a {
+  background-color: var(--color-dark);
+  border-radius: 9999px;
+  color: var(--color-light-purple);
+  display: inline-block;
+  font-size: var(--font-size-smaller);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.5;
+  margin: 0 4px 4px 0;
+  padding: 4px 8px;
+  text-decoration: none;
+}
+
+.layout-multiple-columns .hashtag-bar .link-button {
+  font-size: var(--font-size-smaller);
+}
+
+.layout-multiple-columns .hashtag-bar a:focus,
+.layout-multiple-columns .hashtag-bar a:hover {
+  background-color: var(--color-accent-dark);
+  /* It should be always light also on light mode, so not using variable here */
+  color: #f7f9f9;
+}
+
+.layout-multiple-columns .hashtag-bar a:focus span,
+.layout-multiple-columns .hashtag-bar a:hover span {
+  text-decoration: none;
 }
 
 /* Status update tinted to right */
+.layout-multiple-columns .status:not(.status--in-thread) .hashtag-bar,
 .layout-multiple-columns .status__content--collapsed + .status__content__read-more-button,
 .layout-multiple-columns .status:not(.status--in-thread) .status__action-bar,
 .layout-multiple-columns .status:not(.status--in-thread) .attachment-list,
@@ -1536,8 +1621,14 @@ body.embed .detailed-status__meta .detailed-status__link .fa-retweet,
 .layout-multiple-columns .column-subheading {
   background-color: transparent;
   color: var(--color-fg);
-  font-size: var(--font-size-bigger);
-  font-weight: var(--font-weight-bold);
+  /* stylelint-disable-next-line */
+  font-size: var(--font-size-bigger) !important;
+  /* stylelint-disable-next-line */
+  font-weight: var(--font-weight-bold) !important;
+  /* stylelint-disable-next-line */
+  padding-bottom: 12px !important;
+  /* stylelint-disable-next-line */
+  padding-top: 24px !important;
   text-transform: unset;
 }
 
@@ -1804,12 +1895,13 @@ body.embed .detailed-status__meta .detailed-status__link .fa-retweet,
   color: var(--color-light-text);
   display: flex;
   font-size: var(--font-size);
+  font-weight: var(--font-weight-semibold);
   gap: var(--gap-default);
   overflow: visible;
-  padding-bottom: calc(var(--gap-default) + 4px);
+  padding-bottom: 8px;
   padding-left: var(--gap-default);
   padding-right: calc(var(--gap-default) * 1.5);
-  padding-top: calc(var(--gap-default) + 4px);
+  padding-top: 8px;
   transition: all 100ms;
 }
 
@@ -1819,7 +1911,8 @@ body.embed .detailed-status__meta .detailed-status__link .fa-retweet,
 }
 
 .layout-multiple-columns .column-link > i {
-  min-width: 1.3em;
+  min-width: 20px;
+  width: 20px;
 }
 
 .layout-multiple-columns .column-link > span {
@@ -2175,6 +2268,11 @@ body.embed .detailed-status__meta .detailed-status__link .fa-retweet,
 }
 
 /* Follow/unfollow button */
+.layout-multiple-columns .button.button--with-bell {
+  padding: 7px 18px;
+}
+
+/* Follow/unfollow button */
 body.embed .button.logo-button,
 .layout-multiple-columns .notification__report__actions .button,
 .layout-multiple-columns .column-inline-form button,
@@ -2436,6 +2534,38 @@ body.embed .button.logo-button:hover,
     max-height: 20vh !important;  /* stylelint-disable-next-line */
     overflow-y: auto !important;
     resize: none;
+  }
+
+  /* Add slight background color for the compose form */
+  /* stylelint-disable-next-line no-duplicate-selectors */
+  .layout-multiple-columns .compose-form .compose-form__autosuggest-wrapper,
+  .layout-multiple-columns .compose-form .compose-form__buttons-wrapper {
+    background-color: var(--color-bg-compose-form);
+    border-color: var(--color-bg-compose-form);
+    padding-top: 0;
+    transition: all 200ms;
+  }
+
+  /* Smooth color transition on focus */
+  .layout-multiple-columns .compose-form .compose-form__autosuggest-wrapper:focus-within,
+  .layout-multiple-columns .compose-form .compose-form__autosuggest-wrapper:focus-within ~ .compose-form__buttons-wrapper {
+    background-color: var(--color-bg-compose-form-focus);
+    border-color: var(--color-bg-compose-form-focus);
+  }
+
+  /* Fixes bottom row padding when there's a background */
+  .layout-multiple-columns .compose-form .compose-form__buttons-wrapper {
+    padding: calc(var(--gap-default) / 2);
+  }
+
+  .layout-multiple-columns .navigation-bar + .compose-form {
+    padding-top: 10px;
+  }
+
+  .layout-multiple-columns .compose-form .emoji-picker-dropdown {
+    inset-inline-end: 3px;
+    position: absolute;
+    top: 3px;
   }
 }
 
@@ -3002,8 +3132,19 @@ body.embed .button.logo-button:hover,
   }
 }
 
-/* Mobile */
+/* iPad */
 @media screen and (max-width: 889px) {
+  .layout-multiple-columns .ui__header {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .layout-multiple-columns .ui::after {
+    display: none;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 630px) {
   /* Better blur overlay for ui-header */
   .layout-multiple-columns .ui::after {
     backdrop-filter: blur(12px);
@@ -3180,8 +3321,11 @@ body.embed .button.logo-button:hover,
   /* Make the column link 1/4 of width of the screen */
   .layout-multiple-columns .navigation-panel .navigation-panel__legal,
   .layout-multiple-columns .navigation-panel .column-link {
+    border: 0;
     flex: 0 0 calc(100vw / 4);
+    margin-inline: 0;
     padding: 0;
+    padding-inline: 0;
   }
 
   .layout-multiple-columns .navigation-panel .navigation-panel__legal {
@@ -3242,6 +3386,19 @@ body.embed .button.logo-button:hover,
   }
 }
 
+/* Add bottom padding to the navigation panel for the
+   Safari PWA on iPhones with the portrait mode home bar */
+@media screen and (device-width: 375px) and (device-height: 812px) and (min-resolution: 2dppx) and (orientation: portrait) and (display-mode: standalone), /* iPhone 12, iPhone 12 Pro, iPhone 13, iPhone 13 Pro, and iPhone 14 */ screen and (device-width: 390px) and (device-height: 844px) and (min-resolution: 3dppx) and (orientation: portrait) and (display-mode: standalone), /* iPhone 14 Pro */ screen and (device-width: 393px) and (device-height: 852px) and (min-resolution: 3dppx) and (orientation: portrait) and (display-mode: standalone), /* iPhone XR and iPhone 11 */ screen and (device-width: 414px) and (device-height: 896px) and (min-resolution: 2dppx) and (orientation: portrait) and (display-mode: standalone), /* iPhone Xs Max and iPhone 11 Pro Max */ screen and (device-width: 414px) and (device-height: 896px) and (min-resolution: 3dppx) and (orientation: portrait) and (display-mode: standalone), /* iPhone 12 Pro Max, iPhone 13 Pro Max, and iPhone 14 Plus */ screen and (device-width: 428px) and (device-height: 926px) and (min-resolution: 3dppx) and (orientation: portrait) and (display-mode: standalone), /* iPhone 14 Pro Max */ screen and (device-width: 430px) and (device-height: 932px) and (min-resolution: 3dppx) and (orientation: portrait) and (display-mode: standalone) {
+  .layout-multiple-columns .columns-area__panels__pane--navigational .columns-area__panels__pane__inner {
+    padding-bottom: 26px;
+  }
+
+  /* Fix top header overlapping in /publish on iPhone */
+  .layout-multiple-columns .columns-area--mobile:has(.compose-form) {
+    top: 34px;
+  }
+}
+
 /* Retweet animation */
 /* stylelint-disable-next-line selector-not-notation */
 .layout-multiple-columns.no-reduce-motion .icon-button.active:not([aria-label="Unboost"]):not([aria-label="Peru tehostus"]) .fa-retweet {
@@ -3272,6 +3429,17 @@ body.embed .button.logo-button:hover,
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   overflow: hidden;
+}
+
+/* Exception for your own profile media gallery */
+.layout-multiple-columns .account-gallery__container .media-gallery__gifv {
+  border-radius: 0;
+}
+
+/* Hide autoplaying gifs in notifications (they get annoying if you have favs/boosts on) */
+.layout-multiple-columns .notification.notification-reblog .media-gallery:has(.media-gallery__gifv.autoplay),
+.layout-multiple-columns .notification.notification-favourite .media-gallery:has(.media-gallery__gifv.autoplay) {
+  display: none;
 }
 
 /* More distinct focus color for accessibility, instead of just white */
@@ -3390,6 +3558,7 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
 }
 
 /* Scrollbars */
+.layout-multiple-columns .scrollable::-webkit-scrollbar,
 .layout-multiple-columns .drawer__inner::-webkit-scrollbar,
 .layout-multiple-columns textarea::-webkit-scrollbar,
 .layout-multiple-columns .autosuggest-textarea__textarea::-webkit-scrollbar,
@@ -3399,6 +3568,7 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
   width: 6px;
 }
 
+.layout-multiple-columns .scrollable::-webkit-scrollbar-thumb,
 .layout-multiple-columns textarea::-webkit-scrollbar-thumb,
 .layout-multiple-columns .autosuggest-textarea__textarea::-webkit-scrollbar-thumb,
 .layout-multiple-columns .reply-indicator::-webkit-scrollbar-thumb,
@@ -3408,6 +3578,7 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
   border-radius: 50px;
 }
 
+.layout-multiple-columns .scrollable::-webkit-scrollbar-thumb:hover,
 .layout-multiple-columns textarea::-webkit-scrollbar-thumb:hover,
 .layout-multiple-columns .autosuggest-textarea__textarea::-webkit-scrollbar-thumb:hover,
 .layout-multiple-columns .reply-indicator::-webkit-scrollbar-thumb:hover,
@@ -3415,6 +3586,7 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
   background-color: var(--color-light-purple);
 }
 
+.layout-multiple-columns .scrollable::-webkit-scrollbar-thumb:active,
 .layout-multiple-columns textarea::-webkit-scrollbar-thumb:active,
 .layout-multiple-columns .autosuggest-textarea__textarea::-webkit-scrollbar-thumb:active,
 .layout-multiple-columns .reply-indicator::-webkit-scrollbar-thumb:active,
@@ -3422,6 +3594,7 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
   background-color: var(--color-black-coral);
 }
 
+.layout-multiple-columns .scrollable::-webkit-scrollbar-track,
 .layout-multiple-columns textarea::-webkit-scrollbar-track,
 .layout-multiple-columns .autosuggest-textarea__textarea::-webkit-scrollbar-track,
 .layout-multiple-columns .reply-indicator::-webkit-scrollbar-track,
@@ -3431,6 +3604,7 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
   border-radius: 0;
 }
 
+.layout-multiple-columns .scrollable::-webkit-scrollbar-track:hover,
 .layout-multiple-columns textarea::-webkit-scrollbar-track:hover,
 .layout-multiple-columns .autosuggest-textarea__textarea::-webkit-scrollbar-track:hover,
 .layout-multiple-columns .reply-indicator::-webkit-scrollbar-track:hover,
@@ -3438,6 +3612,7 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
   background-color: var(--color-bg);
 }
 
+.layout-multiple-columns .scrollable::-webkit-scrollbar-track:active,
 .layout-multiple-columns textarea::-webkit-scrollbar-track:active,
 .layout-multiple-columns .autosuggest-textarea__textarea::-webkit-scrollbar-track:active,
 .layout-multiple-columns .reply-indicator::-webkit-scrollbar-track:active,
@@ -3445,6 +3620,7 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
   background-color: var(--color-bg);
 }
 
+.layout-multiple-columns .scrollable::-webkit-scrollbar-corner,
 .layout-multiple-columns .drawer__inner::-webkit-scrollbar-corner,
 .layout-multiple-columns textarea::-webkit-scrollbar-corner,
 .layout-multiple-columns .autosuggest-textarea__textarea::-webkit-scrollbar-corner,
@@ -4297,7 +4473,7 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
  */
 
 /* Mastodon Bird UI by @rolle@mementomori.social
-   1.6.8-nightly */
+   1.7.3rc7-nightly */
 
 /* CSS variables */
 :root {
@@ -4312,7 +4488,7 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
   --color-brand-mastodon-links: #858afa;
   --color-brand-mastodon-bg: #1e2028;
   --color-brand-mastodon-dim: #717c9b;
-  --color-brand-mastodon-mud: #272c40;
+  --color-brand-mastodon-mud: rgb(39 44 64 / .5);
   --color-brand-mastodon-dark: #232543;
   --color-brand-mastodon-threaded-line: #434264;
   --color-brand-mastodon-text-light: #8493a7;
@@ -4355,12 +4531,13 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
   --color-hashtag: var(--color-accent);
   --color-mention: var(--color-accent);
   --color-link: var(--color-accent);
+  --color-bg-compose-form: rgb(39 44 64 / .4);
+  --color-bg-compose-form-focus: rgb(39 44 64 / .8);
 
   /* In the original UI this color is lighten($ui-base-color, 12%) */
   --color-outer-space: #42485a;
 
   /* Font related */
-  --font-stack: system-ui, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, Inter, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-size: 15px;
   --font-size-smaller: 13px;
   --font-size-12: 12px;
@@ -4502,6 +4679,8 @@ body.theme-mastodon-light.layout-single-column {
   --color-bg-75: #ffffffbf;
   --color-accent: var(--color-accent-dark);
   --color-ghost-button-text: var(--color-accent-dark);
+  --color-bg-compose-form: rgb(147 136 166 / .2);
+  --color-bg-compose-form-focus: rgb(147 136 166 / .3);
 
   /* Misc */
   --compose-form-linear-gradient: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 53%, rgba(255, 255, 255, 0.8141631652661064) 76%, rgba(255, 255, 255, 0.7077205882352942) 87%, rgba(255, 255, 255, 0.458420868347339) 97%, rgba(255, 255, 255, 0) 100%);
@@ -4599,7 +4778,6 @@ body.theme-mastodon-light.layout-single-column {
 body.layout-single-column {
   background-color: var(--color-bg);
   color: var(--color-fg);
-  font-family: var(--font-stack);
 }
 
 .layout-single-column .ui {
@@ -4779,14 +4957,41 @@ body.layout-single-column {
   top: -2px;
 }
 
-/* Preview cards */
+/* URL preview cards */
 .layout-single-column .status-card,
-.layout-single-column .status-card.compact {
+.layout-single-column .status-card:hover,
+.layout-single-column .status-card:focus {
+  background-color: transparent;
+  border-color: var(--color-border);
+}
+
+/* URL preview card summary text */
+.layout-single-column .status-card .status-card__host,
+.layout-single-column .status-card .status-card__description {
+  color: var(--color-dim);
+}
+
+/* URL preview card box */
+/* stylelint-disable-next-line */
+.layout-single-column .status-card .status-card__content {
+  padding: var(--gap-default);
+}
+
+.layout-single-column .status-card.expanded .status-card__content {
+  display: grid;
+  gap: 8px;
+}
+
+/* Preview cards */
+.layout-single-column .status-card {
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  display: block;
   transition: all 200ms;
+}
+
+.layout-single-column .status-card.expanded {
+  display: block;
 }
 
 .layout-single-column a.status-card .status-card__host {
@@ -4813,8 +5018,25 @@ body.layout-single-column {
 .layout-single-column .status-card a:focus .status-card__host,
 .layout-single-column a.status-card:active .status-card__host,
 .layout-single-column a.status-card:focus .status-card__host,
-.layout-single-column a.status-card:hover .status-card__host {
+.layout-single-column a.status-card:hover .status-card__host,
+.layout-single-column a.status-card:focus .status-card__description,
+.layout-single-column a.status-card:hover .status-card__description {
   color: var(--color-dim);
+}
+
+/* Show minimal status card if there's no image */
+.layout-single-column .status-card .status-card__image:not(:has(img)) {
+  display: none;
+}
+
+/* Show iframe in status card if status contains embedded media */
+.layout-single-column .status-card .status-card-video:has(iframe) {
+  display: inherit;
+}
+
+/* Hide empty status cards alltogether (Mastodon 4.1.5-2023-07-29) */
+.layout-single-column .status-card:has(.fa-file-text) {
+  display: none;
 }
 
 /* Hide empty YouTube description */
@@ -4838,26 +5060,30 @@ body.layout-single-column {
   border-radius: 0;
 }
 
-.layout-single-column a.status-card .status-card__content,
-.layout-single-column a.status-card.compact .status-card__content {
+.layout-single-column a.status-card .status-card__content {
   padding: 16px;
 }
 
-.layout-single-column a.status-card .status-card__title,
-.layout-single-column a.status-card.compact .status-card__title {
+.layout-single-column a.status-card .status-card__title {
   color: var(--color-fg);
   font-size: var(--font-size-title);
   font-weight: var(--font-weight-semibold);
   line-height: 1.3;
   margin: 0;
+}
+
+.layout-single-column a.status-card.expanded .status-card__title {
   white-space: inherit;
 }
 
-.layout-single-column .status-card .status-card__host,
-.layout-single-column .status-card.compact .status-card__host {
+.layout-single-column .status-card.expanded .status-card__host {
   color: var(--color-dim);
   font-size: var(--font-size);
-  margin-bottom: 5px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.layout-single-column .status-card.expanded .status-card__description {
   margin-top: 0;
 }
 
@@ -5227,7 +5453,6 @@ body.embed .status__content a,
 .layout-single-column .status-check-box__status .detailed-status__display-name,
 .layout-single-column .report-dialog-modal .poll__option.dialog-option > .poll__option__text,
 .layout-single-column .status-card .status-card__description,
-.layout-single-column .status-card.compact .status-card__description,
 .layout-single-column .report-dialog-modal .dialog-option .poll__input,
 .layout-single-column .dropdown-menu__container__header,
 .layout-single-column .sign-in-banner p,
@@ -5410,6 +5635,7 @@ body.embed .status__content a,
 /* Status action bar */
 .layout-single-column .status__action-bar {
   margin-top: 12px;
+  max-height: 27px;
 }
 
 /* Display name */
@@ -5511,6 +5737,7 @@ body.embed .detailed-status,
 }
 
 /* Avatars */
+body.embed .detailed-status__display-avatar > img,
 .layout-single-column .account-card__title__avatar .account__avatar,
 .layout-single-column .account-card__title__avatar img,
 .layout-single-column .account__avatar > img,
@@ -5570,23 +5797,6 @@ body.embed .detailed-status,
   background: var(--color-focusable-toot);
 }
 
-/* URL preview cards */
-.layout-single-column .status-card,
-.layout-single-column .status-card.compact:hover,
-.layout-single-column .status-card.compact:focus,
-.layout-single-column .status-card.compact {
-  background-color: transparent;
-  border-color: var(--color-border);
-}
-
-/* URL preview card summary text */
-.layout-single-column .status-card .status-card__host,
-.layout-single-column .status-card.compact .status-card__host,
-.layout-single-column .status-card .status-card__description,
-.layout-single-column .status-card.compact .status-card__description {
-  color: var(--color-dim);
-}
-
 /* Search panel that opens when focusing Search or paste URL field */
 .layout-single-column .explore__search-header .search__popout,
 .layout-single-column .compose-form__poll-wrapper option,
@@ -5602,16 +5812,38 @@ body.embed .detailed-status,
   color: var(--color-light-text);
 }
 
-/* URL preview card box */
-/* stylelint-disable-next-line */
-.layout-single-column .status-card .status-card__content,
-.layout-single-column .status-card.compact .status-card__content {
-  display: grid;
-  gap: calc(var(--gap-default) / 2);
-  padding: var(--gap-default);
+/* Pill style tags */
+.layout-single-column .hashtag-bar a {
+  background-color: var(--color-dark);
+  border-radius: 9999px;
+  color: var(--color-light-purple);
+  display: inline-block;
+  font-size: var(--font-size-smaller);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.5;
+  margin: 0 4px 4px 0;
+  padding: 4px 8px;
+  text-decoration: none;
+}
+
+.layout-single-column .hashtag-bar .link-button {
+  font-size: var(--font-size-smaller);
+}
+
+.layout-single-column .hashtag-bar a:focus,
+.layout-single-column .hashtag-bar a:hover {
+  background-color: var(--color-accent-dark);
+  /* It should be always light also on light mode, so not using variable here */
+  color: #f7f9f9;
+}
+
+.layout-single-column .hashtag-bar a:focus span,
+.layout-single-column .hashtag-bar a:hover span {
+  text-decoration: none;
 }
 
 /* Status update tinted to right */
+.layout-single-column .status:not(.status--in-thread) .hashtag-bar,
 .layout-single-column .status__content--collapsed + .status__content__read-more-button,
 .layout-single-column .status:not(.status--in-thread) .status__action-bar,
 .layout-single-column .status:not(.status--in-thread) .attachment-list,
@@ -6749,6 +6981,38 @@ body.embed .button.logo-button:hover,
     overflow-y: auto !important;
     resize: none;
   }
+
+  /* Add slight background color for the compose form */
+  /* stylelint-disable-next-line no-duplicate-selectors */
+  .layout-single-column .compose-form .compose-form__autosuggest-wrapper,
+  .layout-single-column .compose-form .compose-form__buttons-wrapper {
+    background-color: var(--color-bg-compose-form);
+    border-color: var(--color-bg-compose-form);
+    padding-top: 0;
+    transition: all 200ms;
+  }
+
+  /* Smooth color transition on focus */
+  .layout-single-column .compose-form .compose-form__autosuggest-wrapper:focus-within,
+  .layout-single-column .compose-form .compose-form__autosuggest-wrapper:focus-within ~ .compose-form__buttons-wrapper {
+    background-color: var(--color-bg-compose-form-focus);
+    border-color: var(--color-bg-compose-form-focus);
+  }
+
+  /* Fixes bottom row padding when there's a background */
+  .layout-single-column .compose-form .compose-form__buttons-wrapper {
+    padding: calc(var(--gap-default) / 2);
+  }
+
+  .layout-single-column .navigation-bar + .compose-form {
+    padding-top: 10px;
+  }
+
+  .layout-single-column .compose-form .emoji-picker-dropdown {
+    inset-inline-end: 3px;
+    position: absolute;
+    top: 3px;
+  }
 }
 
 @media (min-width: 889px) and (max-height: 1000px) {
@@ -7318,6 +7582,8 @@ body.embed .button.logo-button:hover,
   /* Better blur overlay for ui-header */
   .layout-single-column .ui::after {
     backdrop-filter: blur(12px);
+    /* stylelint-disable-next-line */
+    -webkit-backface-visibility: hidden;
     background-color: var(--color-bg-75);
     content: '';
     /* Height is .ui__header + .tabs-bar__wrapper */
@@ -7491,8 +7757,11 @@ body.embed .button.logo-button:hover,
   /* Make the column link 1/4 of width of the screen */
   .layout-single-column .navigation-panel .navigation-panel__legal,
   .layout-single-column .navigation-panel .column-link {
+    border: 0;
     flex: 0 0 calc(100vw / 4);
+    margin-inline: 0;
     padding: 0;
+    padding-inline: 0;
   }
 
   .layout-single-column .navigation-panel .navigation-panel__legal {
@@ -7547,6 +7816,24 @@ body.embed .button.logo-button:hover,
   .layout-single-column .navigation-panel .column-link:nth-child(12) {
     order: 12;
   }
+
+  /* Fix "About" page's server thumbnail margins */
+  .about__header__hero {
+    margin-top: 30px;
+  }
+}
+
+/* Add bottom padding to the navigation panel for the
+   Safari PWA on iPhones with the portrait mode home bar */
+@media screen and (device-width: 375px) and (device-height: 812px) and (min-resolution: 2dppx) and (orientation: portrait) and (display-mode: standalone), /* iPhone 12, iPhone 12 Pro, iPhone 13, iPhone 13 Pro, and iPhone 14 */ screen and (device-width: 390px) and (device-height: 844px) and (min-resolution: 3dppx) and (orientation: portrait) and (display-mode: standalone), /* iPhone 14 Pro */ screen and (device-width: 393px) and (device-height: 852px) and (min-resolution: 3dppx) and (orientation: portrait) and (display-mode: standalone), /* iPhone XR and iPhone 11 */ screen and (device-width: 414px) and (device-height: 896px) and (min-resolution: 2dppx) and (orientation: portrait) and (display-mode: standalone), /* iPhone Xs Max and iPhone 11 Pro Max */ screen and (device-width: 414px) and (device-height: 896px) and (min-resolution: 3dppx) and (orientation: portrait) and (display-mode: standalone), /* iPhone 12 Pro Max, iPhone 13 Pro Max, and iPhone 14 Plus */ screen and (device-width: 428px) and (device-height: 926px) and (min-resolution: 3dppx) and (orientation: portrait) and (display-mode: standalone), /* iPhone 14 Pro Max */ screen and (device-width: 430px) and (device-height: 932px) and (min-resolution: 3dppx) and (orientation: portrait) and (display-mode: standalone) {
+  .layout-single-column .columns-area__panels__pane--navigational .columns-area__panels__pane__inner {
+    padding-bottom: 26px;
+  }
+
+  /* Fix top header overlapping in /publish on iPhone */
+  .layout-single-column .columns-area--mobile:has(.compose-form) {
+    top: 34px;
+  }
 }
 
 /* Retweet animation */
@@ -7584,6 +7871,12 @@ body.embed .button.logo-button:hover,
 /* Exception for your own profile media gallery */
 .layout-single-column .account-gallery__container .media-gallery__gifv {
   border-radius: 0;
+}
+
+/* Hide autoplaying gifs in notifications (they get annoying if you have favs/boosts on) */
+.layout-single-column .notification.notification-reblog .media-gallery:has(.media-gallery__gifv.autoplay),
+.layout-single-column .notification.notification-favourite .media-gallery:has(.media-gallery__gifv.autoplay) {
+  display: none;
 }
 
 /* More distinct focus color for accessibility, instead of just white */
@@ -8616,9 +8909,6 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
  * Star animation micro-interactions end
  * -------------------------------------
  */
-
-
-
 
 
 /* VKL styles */
