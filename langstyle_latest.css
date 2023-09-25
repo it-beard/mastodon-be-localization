@@ -9282,3 +9282,23 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
     border: 1px solid #660000 !important;
     transition: 0.3s !important;
 }
+
+/* Пераклад */
+
+div.account__section-headline a[href="/public/local"] div  {
+    visibility: hidden;
+    position: relative;
+}
+
+div.account__section-headline a[href="/public/local"] div:after  {
+    content: 'Тутэйшыя';
+    visibility: visible;
+    position: absolute;
+    left: 31%;
+}
+
+@media screen and (max-width: 889px){
+    div.account__section-headline a[href="/public/local"] div:after  {
+        left: 22%;
+    }
+}}
